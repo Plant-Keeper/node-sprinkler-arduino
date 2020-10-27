@@ -1,9 +1,21 @@
+#include "Arduino.h"
+#include "Adafruit_GFX.h"
+#include "Adafruit_ST7735.h"
+#include "SPI.h"
+#include "display.h"
+
+
+DisplayLib displayLib ;
+
 void setup() {
-  // put your setup code here, to run once:
+	Serial.begin(115200);
+	displayLib.initR();
+
 
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
 
+void loop() {
+	displayLib.printSomething();
+	delay(250);
 }
