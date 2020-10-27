@@ -2,10 +2,9 @@ One-Green node Sprinkler firmware
 =================================
 
 
-Board: ESP32
-Firmware: Arduino
-
 Requirements:
+    - Board: ESP32
+    - Firmware: Arduino
     - Arduino IDE (https://www.arduino.cc/en/main/software)
     - ESP32 compiler (https://github.com/espressif/arduino-esp32)
 
