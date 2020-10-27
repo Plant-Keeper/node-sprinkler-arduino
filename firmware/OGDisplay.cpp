@@ -14,16 +14,6 @@
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCLK, TFT_RST);
 
-// color definitions
-extern uint16_t  Display_Color_Black        = 0x0000;
-extern uint16_t  Display_Color_Blue         = 0x001F;
-extern uint16_t  Display_Color_Red          = 0xF800;
-extern uint16_t  Display_Color_Green        = 0x07E0;
-extern uint16_t  Display_Color_Cyan         = 0x07FF;
-extern uint16_t  Display_Color_Magenta      = 0xF81F;
-extern uint16_t  Display_Color_Yellow       = 0xFFE0;
-extern uint16_t  Display_Color_White        = 0xFFFF;
-
 
 void DisplayLib::initR(){
 
