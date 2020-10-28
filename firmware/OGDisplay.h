@@ -15,6 +15,8 @@ class DisplayLib {
 		// constructor
 		void initR();
 		void drawtext(char *text, uint16_t color);
+		void initWifi();
+		void connectedWifi();
 	private:
 
 };

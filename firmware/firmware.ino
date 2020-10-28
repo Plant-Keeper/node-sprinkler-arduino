@@ -1,5 +1,9 @@
-
 #include "OGDisplay.h"
+#include <WiFi.h>
+
+const char* ssid = "*";
+const char* password = "*";
+
 
 DisplayLib displayLib;
 
@@ -14,7 +18,31 @@ DisplayLib displayLib;
 
 
 void setup(void) {
+
+	Serial.begin(115200);
 	displayLib.initR();
+
+	delay(1000);
+	Serial.println("\n");
+
+	displayLib.initWifi();
+	Serial.print("Connecting to wifi "); Serial.print(ssid);
+
+	WiFi.begin(ssid, password);
+
+
+	while(WiFi.status() != WL_CONNECTED)
+	{
+		Serial.print(".");
+		delay(100);
+	}
+
+	Serial.println("\n");
+	displayLib.connectedWifi();
+	Serial.println("Connected ");
+	Serial.print("IP address: ");
+	Serial.println(WiFi.localIP());
+
 }
 
 void loop() {

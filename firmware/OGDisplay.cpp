@@ -26,9 +26,22 @@ void DisplayLib::initR(){
 
 }
 
+
+void DisplayLib::initWifi(){
+	drawtext("Connecting to WIFI", ST7735_WHITE);
+}
+
+
+void DisplayLib::connectedWifi(){
+	drawtext("Connected to WIFI", ST7735_WHITE);
+}
+
+
 void DisplayLib::drawtext(char *text, uint16_t color) {
+	tft.fillScreen(ST7735_BLACK);
 	tft.setCursor(0, 0);
 	tft.setTextColor(color);
 	tft.setTextWrap(true);
 	tft.print(text);
 }
+
