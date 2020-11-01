@@ -3,9 +3,10 @@
 
 #if (ARDUINO >= 100 )
 	#include "Arduino.h"
+	#include "SPI.h"
+	#include "WiFi.h"
 	#include "Adafruit_GFX.h"
 	#include "Adafruit_ST7735.h"
-	#include "SPI.h"
 #else
 	#include "WProgram.h"
 #endif
@@ -17,6 +18,8 @@ class DisplayLib {
 		void drawtext(char *text, uint16_t color);
 		void initWifi();
 		void connectedWifi();
+		void printHeader(char *wifiSsid, IPAddress ip, char *nodeType, char *nodeTag);
+		String ip2Str(IPAddress ip);
 	private:
 
 };

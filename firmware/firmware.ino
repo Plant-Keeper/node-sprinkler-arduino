@@ -1,8 +1,10 @@
 #include "OGDisplay.h"
 #include <WiFi.h>
 
-const char* ssid = "*";
-const char* password = "*";
+char* NODE_TYPE = "sprinkler" ;
+char* NODE_TAG  = "orchid" ;
+char* WIFI_SSID = "*";
+char* PASSWORD  = "*";
 
 
 DisplayLib displayLib;
@@ -26,9 +28,8 @@ void setup(void) {
 	Serial.println("\n");
 
 	displayLib.initWifi();
-	Serial.print("Connecting to wifi "); Serial.print(ssid);
-
-	WiFi.begin(ssid, password);
+	Serial.print("Connecting to wifi "); Serial.print(WIFI_SSID);
+	WiFi.begin(WIFI_SSID, PASSWORD);
 
 
 	while(WiFi.status() != WL_CONNECTED)
@@ -43,8 +44,11 @@ void setup(void) {
 	Serial.print("IP address: ");
 	Serial.println(WiFi.localIP());
 
+	displayLib.printHeader(WIFI_SSID, WiFi.localIP(), NODE_TYPE, NODE_TAG);
+
 }
 
 void loop() {
 
+	delay(100);
 }
