@@ -1,22 +1,21 @@
 #include "OGDisplay.h"
 #include <WiFi.h>
 
+
 char* NODE_TYPE = "sprinkler" ;
 char* NODE_TAG  = "orchid" ;
 char* WIFI_SSID = "*";
-char* PASSWORD  = "*";
+char* WIFI_PASSWORD  = "*";
+char* API_GATEWAY_URL = "http://api.af120153-db6a-4fdd-a81b-6d902b00e936.nodes.k8s.fr-par.scw.cloud/sprinkler/registry";
+char* API_GATEWAY_BASIC_AUTH_USER = "";
+char* API_GATEWAY_BASIC_AUTH_PASSWORD = "";
+int API_GATEWAY_PORT = 0;
+char* MQTT_SERVER = "af120153-db6a-4fdd-a81b-6d902b00e936.nodes.k8s.fr-par.scw.cloud";
+int MQTT_PORT = 32500;
+bool registered = false;
 
 
 DisplayLib displayLib;
-
-#define TFT_CS   15
-#define TFT_RST  4
-#define TFT_DC   2
-#define TFT_MOSI 23
-#define TFT_SCLK 18
-// not required
-// #define TFT_MISO 12
-
 
 
 void setup(void) {
@@ -29,7 +28,7 @@ void setup(void) {
 
 	displayLib.initWifi();
 	Serial.print("Connecting to wifi "); Serial.print(WIFI_SSID);
-	WiFi.begin(WIFI_SSID, PASSWORD);
+	WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
 
 	while(WiFi.status() != WL_CONNECTED)
