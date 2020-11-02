@@ -20,6 +20,8 @@ class DisplayLib {
 		void connectedWifi();
 		void printHeader(char *wifiSsid, IPAddress ip, char *nodeType, char *nodeTag);
 		String ip2Str(IPAddress ip);
+		void printTemplate();
+		void printRegistryError();
 	private:
 
 };

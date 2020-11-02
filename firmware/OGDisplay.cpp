@@ -67,6 +67,12 @@ void DisplayLib::printHeader(char *wifiSsid, IPAddress ip, char *nodeType, char 
 	tft.print(nodeTag);
 }
 
+
+void DisplayLib::printTemplate(){
+	tft.print("");
+}
+
+
 void DisplayLib::drawtext(char *text, uint16_t color) {
 	tft.fillScreen(ST7735_BLACK);
 	tft.setCursor(0, 0);
@@ -75,6 +81,18 @@ void DisplayLib::drawtext(char *text, uint16_t color) {
 	tft.print(text);
 }
 
+
+void DisplayLib::printRegistryError(){
+	String message = "This tag is already in database, change it or delete it by using API gateway";
+	tft.fillRect(0, 50, 128, 160, ST7735_RED);
+	tft.setCursor(0, 50);
+	tft.print(message);
+	delay(500);
+	tft.fillRect(0, 50, 128, 160, ST7735_YELLOW);
+	tft.setCursor(0, 50);
+	tft.print(message);
+	delay(500);
+}
 
 
 String DisplayLib::ip2Str(IPAddress ip){
