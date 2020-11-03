@@ -37,12 +37,8 @@ void OGIO::closeWaterValve() {
 
 String OGIO::generateInfluxLineProtocol() {
 	String lineProtoStr =
-			"sprinkler"
-			+ ","
-			+ "tag=" + String(nodeTag)
-			+ " "
-			+"soil_moisture_raw_adc=" + String(soilMoistureADC)+"i"
-			+ ","
+			"sprinkler,tag=" + String(nodeTag)
+			+ " soil_moisture_raw_adc=" + String(soilMoistureADC)+"i,"
 			+ "soil_moisture=" + String(soilMoisture)+"i";
 	return lineProtoStr ;
 }
