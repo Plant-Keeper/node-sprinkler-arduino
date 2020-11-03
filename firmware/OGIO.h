@@ -11,7 +11,7 @@ class OGIO {
 public:
 
 
-	void initR();
+	void initR(char *nodeTag);
 
 	float getMoistureLevelADC();
 
@@ -23,6 +23,9 @@ public:
 
 	String generateInfluxLineProtocol();
 
+	char *nodeTag;
+	float soilMoistureADC;
+	float soilMoisture;
 
 };
 
