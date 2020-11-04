@@ -43,7 +43,11 @@ char *SENSOR_CONTROLLER = "sprinkler/controller";
 int SOIL_MOISTURE_ADC_MAX = 2330;
 int SOIL_MOISTURE_ADC_MIN = 1390;
 
+// ensure NODE_TAG is unique , use CHECK_NODE_TAG_DUPLICATE = false to bypass
 bool registered = false;
+
+// Actuator
+bool last_water_valve_signal = false ;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -172,4 +176,29 @@ void mqttCallback(char *topic, byte *message, unsigned int length) {
 	}
 	Serial.println();
 
+	DynamicJsonDocument doc(1024);
+	deserializeJson(doc, messageTemp);
+	JsonObject obj = doc.as<JsonObject>();
+
+	String tag = obj[String("tag")];
+	bool water_valve_signal = obj[String("water_valve_signal")];
+
+	if (tag == NODE_TAG) {
+		if (water_valve_signal != last_water_valve_signal){
+				last_water_valve_signal = water_valve_signal;
+				if (water_valve_signal){
+					io_handler.openWaterValve();
+					Serial.println("Water valve is OPENED");
+				}
+				else{
+					io_handler.closeWaterValve();
+					Serial.println("Water valve is CLOSED");
+				}
+		}
+	}
+	// ---- to print parsed json object
+	//String output;
+	//serializeJson(doc, output);
+	//Serial.println(output);
+	// ---- to print parsed json object
 }
