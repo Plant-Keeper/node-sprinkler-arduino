@@ -48,6 +48,9 @@ bool registered = false;
 
 // Actuator
 bool last_water_valve_signal = false;
+int soil_moisture_min_level = 0;
+int soil_moisture_max_level = 0;
+
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -129,8 +132,8 @@ void loop() {
 		client.publish(SENSOR_TOPIC, line_proto_char);
 
 		displayLib.updateDisplay(rawSoilMoisture, soilMoisture,
-				30, 70,
-				last_water_valve_signal);
+		                         soil_moisture_min_level, soil_moisture_max_level,
+		                         last_water_valve_signal);
 
 	} else {
 		Serial.println("Not registered, "
@@ -157,7 +160,8 @@ void reconnect_mqtt() {
 		if (client.connect(clt_name_char)) {
 			Serial.println("[MQTT] Client connected");
 			// Subscribe
-			client.subscribe(SENSOR_CONTROLLER);		} else {
+			client.subscribe(SENSOR_CONTROLLER);
+		} else {
 			Serial.print("[MQTT] failed, rc=");
 			Serial.print(client.state());
 			Serial.println("[MQTT] try again in 5 seconds");
@@ -184,10 +188,10 @@ void mqttCallback(char *topic, byte *message, unsigned int length) {
 	deserializeJson(doc, messageTemp);
 	JsonObject obj = doc.as<JsonObject>();
 
-	// TODO : One Green master / sprinklers controller need to be upgraded
-	// TODO: must include user MIN/MAX parameter to display on screen
 	String tag = obj[String("tag")];
 	bool water_valve_signal = obj[String("water_valve_signal")];
+	soil_moisture_min_level = obj[String("soil_moisture_min_level")];
+	soil_moisture_max_level = obj[String("soil_moisture_max_level")];
 
 	if (tag == NODE_TAG) {
 		if (water_valve_signal != last_water_valve_signal) {
@@ -201,9 +205,4 @@ void mqttCallback(char *topic, byte *message, unsigned int length) {
 			}
 		}
 	}
-	// ---- to print parsed json object
-	//String output;
-	//serializeJson(doc, output);
-	//Serial.println(output);
-	// ---- to print parsed json object
 }
